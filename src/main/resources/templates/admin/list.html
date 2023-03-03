@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+
+<head>
+	<meta charset="UTF-8" th:remove="tag">
+</head>
+
+<body>
+
+	<!-- サイドバーの表示 -->
+	<div layout:fragment="sidebar" th:replace="~{fragments/sidebar :: sidebar}">
+	</div>
+
+	<!-- コンテンツの表示 -->
+	<main layout:fragment="content" class="offcanvas-outside bg-light">
+		<div class="container-fluid">
+			<!-- トグルボタン -->
+			<div th:replace="~{fragments/sidebar :: toggler}">
+			</div>
+
+			<div class="row">
+				<div class="col">
+
+					<div class="card shadow">
+						<div class="card-header">
+							<h3 class="text-center text-navy my-2"　th:text="#{user.list}"></h3>
+						</div>
+						<div class="card-body table-responsive">
+							<table id="user-table" class="table table-bordered tbl-list">
+								<thead>
+									<tr>
+										<th class="list-id" th:text="#{ID}"></th>
+										<th th:text="#{username}"></th>
+										<th th:text="#{email}"></th>
+										<th class="list-age" th:text="#{age}"></th>										
+										<th class="list-gender" th:text="#{gender}"></th>
+										<th class="list-role" th:text="#{role}"></th>
+										<th class="list-date" th:text="#{registration.date}"></th>
+										<th class="list-date"　th:text="#{update.date}"></th>
+										<th class="list-date" th:text="#{deleted.date}"></th>
+										<th class="list-status" th:text="#{list.status}"></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="account : ${accounts}">
+										<td th:text="${account.id}"></td>
+										<td th:text="${account.username}"></td>
+										<td th:text="${account.email}"></td>
+										<td th:text="${account.age}"></td>
+										<div th:switch="${account.gender}" th:remove="tag">
+											<div th:case=1 th:remove="tag">
+												<td th:text="#{male}"></td>
+											</div>
+											<div th:case=2 th:remove="tag">
+												<td th:text="#{female}"></td>
+											</div>
+											<div th:case=3 th:remove="tag">
+												<td th:text="#{others}"></td>
+											</div>
+											<div th:case=4 th:remove="tag">
+												<td th:text="#{unknown}"></td>
+											</div>
+										</div>
+										<div th:switch="${account.admin}" th:remove="tag">
+											<div th:case=true th:remove="tag">
+												<td th:text="#{admintrue}"></td>
+											</div>
+											<div th:case=false th:remove="tag">
+												<td th:text="#{adminfalse}"></td>
+											</div>
+										</div>
+										<td th:text="${account.createdAt}"></td>
+										<td th:text="${account.updatedAt}"></td>
+										<td th:text="${account.deletedAt}"></td>
+										<div th:switch="${account.status}" th:remove="tag">
+											<div th:case=0 th:remove="tag">
+												<td th:text="#{active}"></td>
+											</div>
+											<div th:case=-1 th:remove="tag">
+												<td th:text="#{deleted}"></td>
+											</div>
+										</div>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</main>
+
+</body>
+
+</html>

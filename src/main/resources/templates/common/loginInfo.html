@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+
+<head>
+	<meta charset="UTF-8" th:remove="tag">
+</head>
+
+<body>
+
+	<!-- サイドバーの表示 -->
+	<div layout:fragment="sidebar" th:replace="~{fragments/sidebar :: sidebar}">
+	</div>
+
+	<!-- コンテンツの表示 -->
+	<main layout:fragment="content" class="offcanvas-outside bg-light">
+		<div class="container-fluid">
+			<!-- トグルボタン -->
+			<div th:replace="~{fragments/sidebar :: toggler}">
+			</div>
+
+			<div class="row">
+				<div class="col">
+
+					<div class="card shadow mt-3">
+
+						<div class="card-header">
+							<h3 class="text-center text-navy my-2" th:text="#{loginInfo.title}"></h3>
+						</div>
+
+						<!-- ログイン情報 -->
+						<div class="card-body table-responsive">
+
+							<!-- ログインメッセージ -->
+							<div th:replace="~{fragments/message :: info}">
+							</div>
+
+							<table class="tbl-info table-bordered mt-2">
+								<tbody th:each="user : ${userInfo}">
+									<tr class="tbl-info-tr">
+										<th class="tbl-info-th" th:text="#{username}"></th>
+										<td class="tbl-info-td" th:text="${user.username}"></td>
+									</tr>
+									<tr class="tbl-info-tr">
+										<th class="tbl-info-th" th:text="#{email}"></th>
+										<td class="tbl-info-td" th:text="${user.email}"></td>
+									</tr>
+									<tr class="tbl-info-tr">
+										<th class="tbl-info-th" th:text="#{password}"></th>
+										<td th:text="${user.password}"></td>
+									</tr>
+									<tr class="tbl-info-tr">
+										<th class="tbl-info-th" th:text="#{age}"></th>
+										<td class="tbl-info-td" th:text="${user.age}"></td>
+									</tr>
+									<tr class="tbl-info-tr">
+										<th class="tbl-info-th" th:text="#{gender}"></th>
+										<div th:switch="${user.gender}" th:remove="tag">
+											<div th:case=1 th:remove="tag">
+												<td class="tbl-info-td" th:text="#{male}"></td>
+											</div>
+											<div th:case=2 th:remove="tag">
+												<td class="tbl-info-td" th:text="#{female}"></td>
+											</div>
+											<div th:case=3 th:remove="tag">
+												<td class="tbl-info-td" th:text="#{others}"></td>
+											</div>
+											<div th:case=4 th:remove="tag">
+												<td class="tbl-info-td" th:text="#{unknown}"></td>
+											</div>
+										</div>
+									</tr>
+									<tr class="tbl-info-tr">
+										<th class="tbl-info-th" th:text="#{registration.date}"></th>
+										<td class="tbl-info-td" th:text="${user.createdAt}"></td>
+									</tr>
+								</tbody>
+							</table>
+
+							<!-- changeInfo -->
+							<div class="mt-3 mb-3">
+								<table class="tbl">
+									<tbody>
+										<div th:each="item : ${changeInfoMap}" th:remove="tag">
+											<div th:switch="${item.value}" th:remove="tag">
+												<div th:case=10 th:remove="tag">
+													<tr>
+														<th>
+															<form th:action="@{/username}" method="post">
+																<input type="hidden" name="id"
+																	th:value="${item.value}" />
+																<button type="submit"></button>
+															</form>
+														</th>
+														<td th:text="${item.key}" class="p-1"></td>
+													</tr>
+												</div>
+												<div th:case=20 th:remove="tag">
+													<tr>
+														<th>
+															<form th:action="@{/email}" method="post">
+																<input type="hidden" name="id"
+																	th:value="${item.value}" />
+																<button type="submit"></button>
+															</form>
+														</th>
+														<td th:text="${item.key}" class="p-1"></td>
+													</tr>
+												</div>
+												<div th:case=30 th:remove="tag">
+													<tr>
+														<th>
+															<form th:action="@{/password}" method="post">
+																<input type="hidden" name="id"
+																	th:value="${item.value}" />
+																<button type="submit"></button>
+															</form>
+														</th>
+														<td th:text="${item.key}" class="p-1"></td>
+													</tr>
+												</div>
+												<div th:case=40 th:remove="tag">
+													<tr>
+														<th>
+															<form th:action="@{/gender}" method="post">
+																<input type="hidden" name="id"
+																	th:value="${item.value}" />
+																<button type="submit"></button>
+															</form>
+														</th>
+														<td th:text="${item.key}" class="p-1"></td>
+													</tr>
+												</div>
+											</div>
+										</div>
+									</tbody>
+								</table>
+							</div>
+
+							<div class="mb-3">
+								<form th:action="@{/todo/home}" method="get">
+									<input type="submit" th:value="#{return}"
+										class="btn btn-info w-auto form-btn mb-2" />
+								</form>
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</main>
+
+</body>
+
+</html>

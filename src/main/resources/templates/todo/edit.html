@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+
+<head>
+	<meta charset="UTF-8" th:remove="tag">
+</head>
+
+<body>
+
+	<!-- サイドバーの表示 -->
+	<div layout:fragment="sidebar" th:replace="~{fragments/sidebar :: sidebar}">
+	</div>
+
+	<!-- コンテンツの表示 -->
+	<main layout:fragment="content" class="offcanvas-outside bg-light">
+		<div class="container-fluid">
+			<!-- トグルボタン -->
+			<div th:replace="~{fragments/sidebar :: toggler}">
+			</div>
+
+			<div class="row">
+				<div class="col">
+
+					<div class="card shadow">
+
+						<div class="card-header">
+							<h2 class="text-center text-navy my-2" th:text="#{todo.edit}"></h2>
+						</div>
+
+						<!-- 更新入力 -->
+						<div class="form-group">
+							<form th:action="@{/todo/update}" method="post" th:object="${todoForm}" autocomplete="off"
+								id="home-form">
+
+								<div>
+									<label for="contents" th:text="#{todo.edit.inputcontents}"
+										class="form-label mt-3"></label>
+									<input th:field="*{contents}" type="text"
+										class="form-control form-inputcontents mt-3" placeholder="新規contentsを入力してください"
+										th:errorclass="is-invalid" />
+									<div class="invalid-feedback" th:errors="*{contents}"></div>
+								</div>
+
+								<div>
+									<input type="hidden" name="id" th:field="*{id}" />
+									<input type="submit" th:value="#{update}"
+										class="btn btn-primary w-auto form-btn mt-3 mb-2" />
+								</div>
+							</form>
+						</div>
+
+						<div class="form-group">
+							<form th:action="@{/todo/home}" method="get">
+								<input type="submit" th:value="#{return}" class="btn btn-info w-auto form-btn mb-2" />
+							</form>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</main>
+
+</body>
+
+</html>
