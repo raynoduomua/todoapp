@@ -44,6 +44,8 @@ public class SecurityConfig {
 				.logout(logout -> logout
 						// ログアウト時のURLを指定
 						.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+						.logoutUrl("/dailyreport/logout")
+						.logoutSuccessUrl("/login?logout")
 						.permitAll())
 				// Remember-Meの認証を許可します
 				// これを設定すると、ブラウザを閉じて、

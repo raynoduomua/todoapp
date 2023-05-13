@@ -1,6 +1,5 @@
 package com.example.todoapp.infrastructure.entity.common;
 
-import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
@@ -23,31 +22,31 @@ class AccountTest extends Account {
 
 	@Test
 	public void idがnullを返す() {
-		assertThat(sutAccount.getId()).isNull();
+		assertEquals(null, sutAccount.getId());
 	}
 
 	@Test
 	public void idが1を返す() {
 		sutAccount.setId((long) 1);
 		Long expected = (long) 1;
-		assertThat(sutAccount.getId()).isEqualTo(expected);
+		assertEquals(expected, sutAccount.getId());
 	}
 
 	@Test
 	public void usernameがnullを返す() {
-		assertThat(sutAccount.getUsername()).isNull();
+		assertEquals(null, sutAccount.getUsername());
 	}
 
 	@Test
 	public void usernameがadminを返す() {
 		sutAccount.setUsername("admin");
 		String expected = "admin";
-		assertThat(sutAccount.getUsername()).isEqualTo(expected);
+		assertEquals(expected, sutAccount.getUsername());
 	}
 
 	@Test
 	public void emailがnullを返す() {
-		assertThat(sutAccount.getEmail()).isNull();
+		assertEquals(null, sutAccount.getEmail());
 	}
 
 	@Test
@@ -55,79 +54,103 @@ class AccountTest extends Account {
 	public void returnEmailisNotNull() {
 		sutAccount.setEmail("admin@admin.jp");
 		String expected = "admin@admin.jp";
-		assertThat(sutAccount.getEmail()).isEqualTo(expected);
+		assertEquals(expected, sutAccount.getEmail());
 	}
 
 	@Test
 	public void passwordがnullを返す() {
-		assertThat(sutAccount.getPassword()).isNull();
+		assertEquals(null, sutAccount.getPassword());
 	}
 
 	@Test
 	public void passwordがpasswordを返す() {
 		sutAccount.setPassword("password");
 		String expected = "password";
-		assertThat(sutAccount.getPassword()).isEqualTo(expected);
+		assertEquals(expected, sutAccount.getPassword());
 	}
 
 	@Test
 	public void ageがZeroを返す() {
-		assertThat(sutAccount.getAge()).isZero();
+		assertEquals(0, sutAccount.getAge());
 	}
 
 	@Test
 	public void ageが20を返す() {
 		sutAccount.setAge(20);
 		int expected = 20;
-		assertThat(sutAccount.getAge()).isEqualTo(expected);
+		assertEquals(expected, sutAccount.getAge());
 	}
 
 	@Test
 	public void genderがZeroを返す() {
-		assertThat(sutAccount.getGender()).isZero();
+		assertEquals(0, sutAccount.getGender());
 	}
 
 	@Test
 	public void genderが1を返す() {
 		sutAccount.setGender(1);
 		int expected = 1;
-		assertThat(sutAccount.getGender()).isEqualTo(expected);
+		assertEquals(expected, sutAccount.getGender());
 	}
 
 	@Test
 	public void adminがtrueを返す() {
 		sutAccount.setAdmin(true);
-		assertThat(sutAccount.isAdmin()).isTrue();
+		assertTrue(sutAccount.isAdmin());
 	}
 
 	@Test
 	public void adminがfalseを返す() {
 		sutAccount.setAdmin(false);
-		assertThat(sutAccount.isAdmin()).isFalse();
+		assertFalse(sutAccount.isAdmin());
 	}
 
 	@Test
 	public void statusがZeroを返す() {
-		assertThat(sutAccount.getStatus()).isZero();
+		assertEquals(0, sutAccount.getStatus());
 	}
 
 	@Test
 	public void statusが1を返す() {
 		sutAccount.setStatus(1);
 		int expected = 1;
-		assertThat(sutAccount.getStatus()).isEqualTo(expected);
+		assertEquals(expected, sutAccount.getStatus());
 	}
 
 	@Test
 	public void createdAtがnullを返す() {
-		assertThat(sutAccount.getCreatedAt()).isNull();
+		assertNull(sutAccount.getCreatedAt());
 	}
 
 	@Test
-	public void createdAtがpasswordを返す() {
+	public void createdAtが本日日付を返す() {
 		sutAccount.setCreatedAt(LocalDateNow.getLocalDateNow());
 		LocalDate expected = LocalDateNow.getLocalDateNow();
-		assertEquals(sutAccount.getCreatedAt(), expected);
+		assertEquals(expected, sutAccount.getCreatedAt());
+	}
+
+	@Test
+	public void updateAtがnullを返す() {
+		assertNull(sutAccount.getUpdatedAt());
+	}
+
+	@Test
+	public void updateAtが本日日付を返す() {
+		sutAccount.setUpdatedAt(LocalDateNow.getLocalDateNow());
+		LocalDate expected = LocalDateNow.getLocalDateNow();
+		assertEquals(expected, sutAccount.getUpdatedAt());
+	}
+
+	@Test
+	public void deleteAtがnullを返す() {
+		assertNull(sutAccount.getDeletedAt());
+	}
+
+	@Test
+	public void deleteAtがpasswordを返す() {
+		sutAccount.setDeletedAt(LocalDateNow.getLocalDateNow());
+		LocalDate expected = LocalDateNow.getLocalDateNow();
+		assertEquals(expected, sutAccount.getDeletedAt());
 	}
 
 	@AfterEach
